@@ -16,6 +16,7 @@
     <None Remove="Images\sycbk2.png" />
     <None Remove="Images\sycbk3.png" />
     <None Remove="Images\sycbk4.png" />
+    <None Remove="test.db" />
   </ItemGroup>
 
   <ItemGroup>
@@ -68,6 +69,9 @@
   <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="test.db-shm">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
