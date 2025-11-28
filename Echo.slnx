@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="Echo.WebService/Echo.WebService.csproj" Id="8fee5d67-229f-459a-a014-b1faa1f6f2b5" />
+  <Project Path="Echo.Server/Echo.Server.csproj" />
   <Project Path="Echo/Echo.csproj" Id="9638795b-6031-4845-b92c-88cb6f2de124" />
 </Solution>

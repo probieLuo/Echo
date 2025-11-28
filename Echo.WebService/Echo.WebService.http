@@ -1,6 +1,0 @@
-@Echo.WebService_HostAddress = http://localhost:5016
-
-GET {{Echo.WebService_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
