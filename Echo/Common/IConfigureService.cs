@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Echo.Common
+﻿namespace Echo.Common
 {
     public interface IConfigureService
     {

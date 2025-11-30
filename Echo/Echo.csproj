@@ -36,9 +36,12 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="5.3.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="Notification.Wpf" Version="8.0.0" />
     <PackageReference Include="Prism.DryIoc" Version="9.0.537" />
+    <PackageReference Include="RestSharp" Version="113.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\Echo.Shared\Echo.Shared.csproj" />
   </ItemGroup>
 </Project>

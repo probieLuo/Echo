@@ -27,7 +27,7 @@ namespace Echo.Common.Controls
             if (d is PasswordBox passwordBox && !_isUpdatingPassword)
             {
                 _isUpdatingPassword = true;
-                passwordBox.Password = e.NewValue.ToString();
+                passwordBox.Password = e.NewValue?.ToString();
                 _isUpdatingPassword = false;
             }
         }

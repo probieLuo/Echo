@@ -1,12 +1,12 @@
+using Echo.Server.DataBaseContext;
+using Echo.Server.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
-using Echo.Server.Entities;
-using Echo.Server.DataBaseContext;
 
 namespace Echo.Server.Hubs
 {
-    [Authorize] // 必须登录（JWT 校验通过）才能连接
+    [Authorize]
     public class ChatHub : Hub
     {
         private readonly MyDbContext _dbContext;

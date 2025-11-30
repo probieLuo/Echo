@@ -24,10 +24,16 @@ public class User
     [MaxLength(100)]
     public string PasswordHash { get; set; } = string.Empty;
 
-    /// <summary>
-    /// 用户唯一标识（用于 SignalR 身份绑定，可自定义格式）
-    /// </summary>
-    [Required]
+	/// <summary>
+	/// email
+	/// </summary>
+	[EmailAddress]
+	public string Email { get; set; } = string.Empty;
+
+	/// <summary>
+	/// 用户唯一标识（用于 SignalR 身份绑定，可自定义格式）
+	/// </summary>
+	[Required]
     [MaxLength(36)]
     public string UserId { get; set; } = Guid.NewGuid().ToString();
 

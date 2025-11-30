@@ -1,13 +1,7 @@
-using BCrypt.Net;
+using Echo.Server.DataBaseContext;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Echo.Server.Entities;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using Echo.Server.DataBaseContext;
 
 namespace Echo.Server.Controllers
 {
@@ -23,11 +17,8 @@ namespace Echo.Server.Controllers
             _dbContext = dbContext;
         }
 
-        /// <summary>
-        /// 查询
-        /// </summary>
-        [HttpPost("All")]
-        public async Task<IActionResult> GetAll()
+        [HttpGet]
+        public async Task<IActionResult> GetUsers()
         {
             var result = _dbContext.Users.ToList();
 
@@ -36,5 +27,16 @@ namespace Echo.Server.Controllers
                 Data=result
             });
         }
-    }
+
+		[HttpGet("{userId}")]
+		public async Task<IActionResult> GetUserById( string userId)
+		{
+			var result = _dbContext.Users.FirstOrDefaultAsync(u=>u.UserId.Equals(userId)).Result;
+
+			return Ok(new
+			{
+				Data = result
+			});
+		}
+	}
 }

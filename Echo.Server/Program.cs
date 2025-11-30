@@ -1,10 +1,10 @@
+using Echo.Server.DataBaseContext;
+using Echo.Server.Hubs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
-using Echo.Server.DataBaseContext;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -76,6 +76,8 @@ builder.Services.AddAuthentication(options =>
 	};
 });
 
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 // 初始化数据库（自动创建表）
@@ -104,5 +106,7 @@ app.UseAuthentication();  // 先验 Token
 app.UseAuthorization();   // 再做授权
 
 app.MapControllers();
+
+app.MapHub<ChatHub>("/chatHub");
 
 app.Run();
