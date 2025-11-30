@@ -19,6 +19,7 @@ namespace Echo.ViewModels
         private readonly IRegionManager _regionManager;
 
 		private readonly IAuthService _authService;
+		private readonly INotificationService _notification;
 
 		public DelegateCommand LoginCommand { get; private set; }
 		public DelegateCommand RegisterCommand { get; }
@@ -32,11 +33,12 @@ namespace Echo.ViewModels
 		public string RegisterPassword { get; set; }
 		public string RegisterConfirmPassword { get; set; }
 
-		public LoginViewModel(IRegionManager regionManager, IAuthService authService)
+		public LoginViewModel(IRegionManager regionManager, IAuthService authService, INotificationService notification)
 		{
             LoginCommand = new DelegateCommand(Login);
             _regionManager = regionManager;
 			_authService = authService;
+			_notification = notification;
 		}
 
         private async void Login()
@@ -48,7 +50,12 @@ namespace Echo.ViewModels
 			}
 			else
 			{
-				
+				_notification.Show(new NotificationContent
+				{
+					Title = "Login Failed",
+					Message = loginResponse.Message,
+					Type = NotificationType.Warning
+				});
 			}
 
 		}

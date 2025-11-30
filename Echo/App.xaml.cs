@@ -9,6 +9,7 @@ using Example;
 using Notification.Wpf;
 using Prism.Container.DryIoc;
 using Prism.Ioc;
+using System;
 using System.Windows;
 
 namespace Echo
@@ -38,7 +39,8 @@ namespace Echo
 			containerRegistry.GetContainer()
 				.Register<HttpRestClient>(made: Parameters.Of.Type<string>(serviceKey: "webUrl"));
 			containerRegistry.GetContainer().RegisterInstance(@"http://localhost:5221/", serviceKey: "webUrl");
-			//containerRegistry.RegisterSingleton<NotificationManager>();
+			containerRegistry.RegisterSingleton<Echo.IServices.INotificationService, Echo.Services.NotificationService>();
+
 			containerRegistry.Register<IAuthService, AuthService>();
 
 			containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
@@ -47,5 +49,6 @@ namespace Echo
             containerRegistry.RegisterForNavigation<ChatView, ChatViewModel>();
             containerRegistry.RegisterForNavigation<RecentChatListView, RecentChatListViewModel>();
         }
-    }
+
+	}
 }
