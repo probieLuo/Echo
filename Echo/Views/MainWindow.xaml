@@ -3,10 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:prism="http://prismlibrary.com/"
         Title="{Binding Title}"
-        Width="525"
-        Height="350"
+        Width="600"
+        Height="400"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        WindowState="{Binding WindowState}">
     <Grid>
         <ContentControl prism:RegionManager.RegionName="RootViewRegion" />
     </Grid>

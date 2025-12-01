@@ -32,10 +32,7 @@
                                  Grid.Row="0"
                                  VerticalAlignment="Top"
                                  Background="{x:Null}"
-                                 Foreground="#FFA07A"
-                                 IsActive="{Binding SnackbarOneIsActive}"
-                                 Message="{Binding Message}"
-                                 MessageQueue="{materialDesign:MessageQueue}" />
+                                 Foreground="#FFA07A" />
 
         <materialDesign:Flipper Grid.Row="1"
                                 HorizontalAlignment="Center"
@@ -112,10 +109,11 @@
                                      Style="{StaticResource MaterialDesignRevealPasswordBox}" />
                         <Button Grid.Row="2"
                                 Grid.ColumnSpan="2"
+                                IsEnabled="{Binding !IsBusy}"
                                 Margin="5"
                                 VerticalAlignment="Bottom"
                                 Command="{Binding LoginCommand}"
-                                Content="Login" />
+                                Content="Login" Cursor="Hand" />
                     </Grid>
                 </Grid>
             </materialDesign:Flipper.FrontContent>

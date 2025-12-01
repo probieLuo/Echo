@@ -12,6 +12,7 @@
              mc:Ignorable="d">
     <UserControl.Resources>
         <converters:BoolToHorizontalAlignmentConverter x:Key="BoolToHorizontalAlignmentConverter" />
+        <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -26,7 +27,6 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
                 <Button Grid.Column="0" Style="{StaticResource MaterialDesignFlatButton}">
@@ -34,9 +34,6 @@
                 </Button>
                 <Button Grid.Column="1" Style="{StaticResource MaterialDesignFlatButton}">
                     <materialDesign:PackIcon Foreground="White" Kind="People" />
-                </Button>
-                <Button Grid.Column="2" Style="{StaticResource MaterialDesignFlatButton}">
-                    <materialDesign:PackIcon Foreground="White" Kind="Contacts" />
                 </Button>
                 <Button Grid.Column="3" Style="{StaticResource MaterialDesignFlatButton}">
                     <materialDesign:PackIcon Foreground="White" Kind="Archive" />
@@ -84,7 +81,7 @@
                           VerticalScrollBarVisibility="Auto">
                 <ScrollViewer.Background>
                     <ImageBrush ImageSource="/MyResources/Images/sycbk1.png"
-                                Opacity="0.6"
+                                Opacity="1"
                                 Stretch="UniformToFill" />
                 </ScrollViewer.Background>
                 <ItemsControl x:Name="MessagesList" ItemsSource="{Binding MessagesList}">
@@ -127,7 +124,7 @@
                                         Margin="10,0,0,0"
                                         CornerRadius="20">
                                     <Border.Background>
-                                        <ImageBrush ImageSource="{Binding SenderAvatar}" />
+                                        <ImageBrush ImageSource="{Binding Avatar}" />
                                     </Border.Background>
                                 </Border>
                             </Grid>
@@ -158,7 +155,7 @@
                              VerticalScrollBarVisibility="Auto" />
                     <Button Grid.Column="3"
                             VerticalAlignment="Bottom"
-                            Command="{Binding SendMessage}"
+                            Command="{Binding SendMessageCommand}"
                             Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
                         <materialDesign:PackIcon Kind="Send" />
                     </Button>

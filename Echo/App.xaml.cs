@@ -10,7 +10,9 @@ using Notification.Wpf;
 using Prism.Container.DryIoc;
 using Prism.Ioc;
 using System;
+using System.Threading.Tasks;
 using System.Windows;
+using Echo.SignalR;
 
 namespace Echo
 {
@@ -42,6 +44,13 @@ namespace Echo
 			containerRegistry.RegisterSingleton<Echo.IServices.INotificationService, Echo.Services.NotificationService>();
 
 			containerRegistry.Register<IAuthService, AuthService>();
+
+			// 注册 SignalRClient 为单例工厂，确保 AccessTokenProvider 在连接时读取最新 TokenStore
+			var container = containerRegistry.GetContainer();
+			string webUrl = container.Resolve<string>(serviceKey: "webUrl");
+			string hubUrl = new Uri(new Uri(webUrl), "chatHub").ToString(); // e.g. http://localhost:5221/chatHub
+
+			containerRegistry.RegisterSingleton<SignalRClient>(() => new SignalRClient(hubUrl, () => Task.FromResult(TokenStore.CurrentToken ?? string.Empty)));
 
 			containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
             containerRegistry.RegisterForNavigation<LoginView, LoginViewModel>();

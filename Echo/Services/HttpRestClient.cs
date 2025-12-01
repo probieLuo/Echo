@@ -22,6 +22,8 @@ namespace Echo.Services
 			if (baseRequest.Parameter != null)
 				request.AddJsonBody(JsonConvert.SerializeObject(baseRequest.Parameter));
 			var response = await client.ExecuteAsync(request);
+			if (!response.IsSuccessful)
+				return ApiResponse.Fail($"请求失败，StatusCode：{response.StatusCode}，ErrorMessage：{response.ErrorMessage}");
 			return JsonConvert.DeserializeObject<ApiResponse>(response.Content);
 		}
 		public async Task<ApiResponse<T>> ExecuteAsync<T>(BaseRequest baseRequest)
@@ -32,6 +34,8 @@ namespace Echo.Services
 			if (baseRequest.Parameter != null)
 				request.AddJsonBody(JsonConvert.SerializeObject(baseRequest.Parameter));
 			var response = await client.ExecuteAsync(request);
+			if(!response.IsSuccessful)
+				return ApiResponse<T>.Fail($"请求失败，StatusCode：{response.StatusCode}，ErrorMessage：{response.ErrorMessage}");
 			return JsonConvert.DeserializeObject<ApiResponse<T>>(response.Content);
 		}
 	}

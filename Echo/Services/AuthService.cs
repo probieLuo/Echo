@@ -29,9 +29,20 @@ namespace Echo.Services
 			return response;
 		}
 
-		public async Task Register(string username, string email, string password)
+		public async Task<ApiResponse> Register(string username, string email, string password)
 		{
-			throw new NotImplementedException();
+			BaseRequest request = new BaseRequest();
+			request.Method = RestSharp.Method.Post;
+			request.Route = $"api/auth/register";
+			request.Parameter = new RegisterDto
+			{
+				Username = username,
+				Email = email,
+				Password = password
+			};
+
+			var response = await client.ExecuteAsync(request);
+			return response;
 		}
 	}
 }
