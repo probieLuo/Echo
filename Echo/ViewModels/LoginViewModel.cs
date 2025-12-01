@@ -14,18 +14,15 @@ using System.Windows.Threading;
 
 namespace Echo.ViewModels
 {
-	public class LoginViewModel: BindableBase
-    {
-        private readonly IRegionManager _regionManager;
-
+	public class LoginViewModel : ViewModelBase
+	{
 		private readonly IAuthService _authService;
-		private readonly INotificationService _notification;
 
 		public DelegateCommand LoginCommand { get; private set; }
 		public DelegateCommand RegisterCommand { get; }
 
 		public string Password { get; set; }
-		public string UserName { get; set;  }
+		public string UserName { get; set; }
 		public string Message { get; set; }
 		public bool SnackbarOneIsActive { get; set; }
 		public string RegisterUserName { get; set; }
@@ -33,31 +30,31 @@ namespace Echo.ViewModels
 		public string RegisterPassword { get; set; }
 		public string RegisterConfirmPassword { get; set; }
 
-		public LoginViewModel(IRegionManager regionManager, IAuthService authService, INotificationService notification)
+		public LoginViewModel(IRegionManager regionManager, IAuthService authService, INotificationService notification) : base(regionManager, notification)
 		{
-            LoginCommand = new DelegateCommand(Login);
-            _regionManager = regionManager;
 			_authService = authService;
-			_notification = notification;
+
+			LoginCommand = new DelegateCommand(Login);
+			RegisterCommand = new DelegateCommand(Register);
 		}
 
-        private async void Login()
-        {
-			var loginResponse =await  _authService.Login(UserName,Password);
+		private async void Register()
+		{
+			throw new NotImplementedException();
+		}
+
+		private async void Login()
+		{
+			var loginResponse = await _authService.Login(UserName, Password);
 			if (loginResponse.Status)
 			{
+				ShowSuccess("登录成功", loginResponse.Message);
 				_regionManager.Regions[PrismManager.RootViewRegionName].RequestNavigate("MainView");
 			}
 			else
 			{
-				_notification.Show(new NotificationContent
-				{
-					Title = "Login Failed",
-					Message = loginResponse.Message,
-					Type = NotificationType.Warning
-				});
+				ShowInformation("登录失败", loginResponse.Message);
 			}
-
 		}
-    }
+	}
 }

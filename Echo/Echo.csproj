@@ -44,4 +44,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Echo.Shared\Echo.Shared.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Events\" />
+  </ItemGroup>
 </Project>
