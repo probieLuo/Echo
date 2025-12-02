@@ -107,6 +107,6 @@ app.UseAuthorization();   // 再做授权
 
 app.MapControllers();
 
-app.MapHub<ChatHub>("/chatHub");
+app.MapHub<ChatHub>("/chatHub").RequireAuthorization();
 
 app.Run();

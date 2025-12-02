@@ -109,18 +109,6 @@ namespace Echo.ViewModels
 
 					_ea.GetEvent<LoginMessageEvent>().Publish(new LoginMessage { MessageType = LoginMessageType.Login, Status = true, Msg = "登录成功" });
 					ShowSuccess("登录成功", loginResponse.Message);
-
-					// 登录成功后解析并启动 SignalRClient
-					try
-					{
-						var client = _containerProvider.Resolve<SignalRClient>();
-						_ = client.StartAsync();
-					}
-					catch (Exception ex)
-					{
-						// 启动失败记录或提示
-						ShowError("SignalR 启动失败", ex.Message);
-					}
 				}
 				else
 				{

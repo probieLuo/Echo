@@ -109,11 +109,11 @@
                                      Style="{StaticResource MaterialDesignRevealPasswordBox}" />
                         <Button Grid.Row="2"
                                 Grid.ColumnSpan="2"
-                                IsEnabled="{Binding !IsBusy}"
                                 Margin="5"
                                 VerticalAlignment="Bottom"
                                 Command="{Binding LoginCommand}"
-                                Content="Login" Cursor="Hand" />
+                                Content="Login"
+                                Cursor="Hand" />
                     </Grid>
                 </Grid>
             </materialDesign:Flipper.FrontContent>

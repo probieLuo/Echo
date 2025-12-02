@@ -112,7 +112,10 @@
                                                  StaysOpen="False">
                             <StackPanel>
                                 <Button Content="{materialDesign:PackIcon Kind=User, Size=20}" ToolTip="User" />
-                                <Button Content="{materialDesign:PackIcon Kind=Login, Size=20}" ToolTip="Signout" />
+                                <Button Command="{Binding SignoutCommand}"
+                                        Content="{materialDesign:PackIcon Kind=Login,
+                                                                          Size=20}"
+                                        ToolTip="Signout" />
                             </StackPanel>
                         </materialDesign:PopupBox>
                     </DockPanel>

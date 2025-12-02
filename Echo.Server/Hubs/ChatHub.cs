@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Echo.Server.Hubs
 {
-    [Authorize]
     public class ChatHub : Hub
     {
         private readonly MyDbContext _dbContext;

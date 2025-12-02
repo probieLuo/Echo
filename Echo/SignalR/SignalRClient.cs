@@ -1,7 +1,8 @@
+using Microsoft.AspNetCore.SignalR.Client;
 using System;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.SignalR.Client;
 
 namespace Echo.SignalR
 {
@@ -34,7 +35,14 @@ namespace Echo.SignalR
                 .WithUrl(_hubUrl, options =>
                 {
                     options.AccessTokenProvider = _accessTokenProvider;
-                })
+
+					options.HttpMessageHandlerFactory = handler =>
+					{
+						if (handler is HttpClientHandler clientHandler)
+							clientHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+						return handler;
+					};
+				})
                 .WithAutomaticReconnect()
                 .Build();
 

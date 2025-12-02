@@ -6,8 +6,7 @@
         Width="600"
         Height="400"
         prism:ViewModelLocator.AutoWireViewModel="True"
-        WindowStartupLocation="CenterScreen"
-        WindowState="{Binding WindowState}">
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <ContentControl prism:RegionManager.RegionName="RootViewRegion" />
     </Grid>

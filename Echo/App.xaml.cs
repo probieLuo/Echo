@@ -45,19 +45,14 @@ namespace Echo
 
 			containerRegistry.Register<IAuthService, AuthService>();
 
-			// 注册 SignalRClient 为单例工厂，确保 AccessTokenProvider 在连接时读取最新 TokenStore
-			var container = containerRegistry.GetContainer();
-			string webUrl = container.Resolve<string>(serviceKey: "webUrl");
-			string hubUrl = new Uri(new Uri(webUrl), "chatHub").ToString(); // e.g. http://localhost:5221/chatHub
-
-			containerRegistry.RegisterSingleton<SignalRClient>(() => new SignalRClient(hubUrl, () => Task.FromResult(TokenStore.CurrentToken ?? string.Empty)));
-
 			containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
             containerRegistry.RegisterForNavigation<LoginView, LoginViewModel>();
             containerRegistry.RegisterForNavigation<MainView, MainViewModel>();
             containerRegistry.RegisterForNavigation<ChatView, ChatViewModel>();
             containerRegistry.RegisterForNavigation<RecentChatListView, RecentChatListViewModel>();
-        }
+			containerRegistry.RegisterForNavigation<DefaultChatContentView, DefaultChatContentViewModel>();
+			containerRegistry.RegisterForNavigation<ChatContentView, ChatContentViewModel>();
+		}
 
 	}
 }
