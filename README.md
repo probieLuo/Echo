@@ -24,17 +24,15 @@
 
 
 ## 客户端截图
-请将截图放到 `docs/screenshots` 目录下，示例：
-- `docs/screenshots/mainwindow.png`（主界面）
-- `docs/screenshots/recent_chats.png`（最近会话列表）
-- `docs/screenshots/login.png`（登录界面）
 
-在 README 中插入示例：
-
+主界面
 ![主界面](resource/屏幕截图2025-12-03-233921.png)
 
+最近会话
 ![最近会话](resource/屏幕截图2025-12-03-233955.png)
 
+登录界面
 ![登录界面](resource/屏幕截图2025-12-03-233739.png)
 
+注册界面
 ![注册界面](resource/屏幕截图2025-12-03-233804.png)
