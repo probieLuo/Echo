@@ -50,7 +50,7 @@ namespace Echo.ViewModels
 		{
 			_ea = ea;
 			client = new SignalRClient("https://localhost:7099/chatHub", AccessTokenProvider);
-			_uiDispatcher = Application.Current.Dispatcher; // 或 Dispatcher.CurrentDispatcher（确保在 UI 线程构造）
+			_uiDispatcher = Application.Current.Dispatcher;
 
 			MessagesList = new ObservableCollection<MessageItem>()
 			{
@@ -58,17 +58,7 @@ namespace Echo.ViewModels
 				//	SenderAvatar = "https://probieluo.github.io/assets/OIP%20(8).jpg",
 				//	MessageContent = "Hello, how are you?",
 				//	IsFromMe = false
-				//},
-				//new MessageItem(){
-				//	SenderAvatar = "https://probieluo.github.io/assets/OIP%20(8).jpg",
-				//	MessageContent = "Let's catch up sometime.",
-				//	IsFromMe = false
-				//},
-				//new MessageItem(){
-				//	SenderAvatar = "https://probieluo.github.io/assets/OIP%20(8).jpg",
-				//	MessageContent = "Let's catch up sometime.\nLet's catch up sometime.\nLet's catch up sometime.\nLet's catch up sometime.\nLet's catch up sometime.\nLet's catch up sometime.\n",
-				//	IsFromMe = false
-				//},
+				//}
 			};
 
 			SignalRSubscribe();
@@ -97,7 +87,7 @@ namespace Echo.ViewModels
 				{
 					MessagesList.Add(new MessageItem
 					{
-						SenderAvatar = CurrentChatObjectAvatar,//"https://probieluo.github.io/assets/OIP%20(8).jpg",
+						SenderAvatar = CurrentChatObjectAvatar,
 						MessageContent = content,
 						IsFromMe = false
 					});
@@ -111,13 +101,10 @@ namespace Echo.ViewModels
 
 			if (string.IsNullOrWhiteSpace(MessageContent)) return;
 
-			// 发送到服务器
 			try
 			{
-				// 这里示例将发送给用户 id 为 "target"，你可以修改为实际选择的聊天对象 id
 				await client.SendPrivateMessageAsync(targetId, MessageContent);
 
-				// 本地显示为已发送消息
 				MessagesList.Add(MessageItem.SendMsg(MessageContent, "https://avatars.githubusercontent.com/u/75834079?v=4"));
 				MessageContent = string.Empty;
 			}
