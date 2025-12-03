@@ -2,5 +2,4 @@
   <Project Path="Echo.Server/Echo.Server.csproj" />
   <Project Path="Echo.Shared/Echo.Shared.csproj" Id="6608d03d-9f32-4fd6-a656-1c40664a7223" />
   <Project Path="Echo/Echo.csproj" Id="9638795b-6031-4845-b92c-88cb6f2de124" />
-  <Project Path="MaterialDemo/MaterialDemo.csproj" />
 </Solution>

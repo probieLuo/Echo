@@ -80,7 +80,7 @@
                                           IsChecked="False"
                                           Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
 
-                            <Button Margin="24,0,0,0"
+                            <!--<Button Margin="24,0,0,0"
                                     Command="{Binding GoBackCommand}"
                                     Content="{materialDesign:PackIcon Kind=ArrowLeft,
                                                                       Size=24}"
@@ -94,7 +94,7 @@
                                                                       Size=24}"
                                     Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}"
                                     Style="{StaticResource MaterialDesignToolButton}"
-                                    ToolTip="Next Item" />
+                                    ToolTip="Next Item" />-->
 
                             <Button Margin="16,0,0,0"
                                     Command="{Binding HomeCommand}"

@@ -45,14 +45,44 @@ namespace Echo
 
 			containerRegistry.Register<IAuthService, AuthService>();
 
+            var signalRClient = new SignalRClient("https://localhost:7099/chatHub", async () => await Task.FromResult(SignalR.TokenStore.CurrentToken ?? string.Empty));
+            containerRegistry.GetContainer().RegisterInstance(signalRClient);
+
 			containerRegistry.RegisterForNavigation<MainWindow, MainWindowViewModel>();
             containerRegistry.RegisterForNavigation<LoginView, LoginViewModel>();
             containerRegistry.RegisterForNavigation<MainView, MainViewModel>();
             containerRegistry.RegisterForNavigation<ChatView, ChatViewModel>();
-            containerRegistry.RegisterForNavigation<RecentChatListView, RecentChatListViewModel>();
-			containerRegistry.RegisterForNavigation<DefaultChatContentView, DefaultChatContentViewModel>();
 			containerRegistry.RegisterForNavigation<ChatContentView, ChatContentViewModel>();
+			containerRegistry.RegisterForNavigation<RecentChatListView, RecentChatListViewModel>();
+			containerRegistry.RegisterForNavigation<ContactListView, ContactListViewModel>();
+			containerRegistry.RegisterForNavigation<DefaultChatContentView, DefaultChatContentViewModel>();
 		}
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            // Dispose SignalRClient singleton if registered
+            try
+            {
+                try
+                {
+                    var client = Container.Resolve(typeof(SignalRClient)) as SignalRClient;
+                    if (client != null)
+                    {
+                        client.DisposeAsync().AsTask().GetAwaiter().GetResult();
+                    }
+                }
+                catch
+                {
+                    // ignore resolution errors
+                }
+            }
+            catch (Exception)
+            {
+                // swallow exceptions during shutdown
+            }
+
+            base.OnExit(e);
+        }
 
 	}
 }

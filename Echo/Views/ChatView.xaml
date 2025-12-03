@@ -16,8 +16,8 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0" Background="{StaticResource MaterialDesign.Brush.Primary.Dark}">
@@ -28,13 +28,17 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" Style="{StaticResource MaterialDesignFlatButton}">
+                <Button Grid.Column="0"
+                        Command="{Binding OpenRecentChatListCommand}"
+                        Style="{StaticResource MaterialDesignFlatButton}">
                     <materialDesign:PackIcon Foreground="White" Kind="History" />
                 </Button>
-                <Button Grid.Column="1" Style="{StaticResource MaterialDesignFlatButton}">
+                <Button Grid.Column="1"
+                        Command="{Binding OpenContactListViewCommand}"
+                        Style="{StaticResource MaterialDesignFlatButton}">
                     <materialDesign:PackIcon Foreground="White" Kind="People" />
                 </Button>
-                <Button Grid.Column="3" Style="{StaticResource MaterialDesignFlatButton}">
+                <Button Grid.Column="2" Style="{StaticResource MaterialDesignFlatButton}">
                     <materialDesign:PackIcon Foreground="White" Kind="Archive" />
                 </Button>
             </Grid>

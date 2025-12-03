@@ -9,6 +9,9 @@
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
+    <UserControl.InputBindings>
+        <KeyBinding Key="Enter" Command="{Binding LoginCommand}" />
+    </UserControl.InputBindings>
     <UserControl.Background>
         <ImageBrush ImageSource="/MyResources/Images/sycbk1.png" Stretch="UniformToFill" />
     </UserControl.Background>

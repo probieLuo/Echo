@@ -25,33 +25,37 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0"
-                        Height="80"
-                        VerticalAlignment="Top"
+            <DockPanel Grid.Row="0"
+                       Height="50"
+                       Background="#FFE4E4E4"
+                       LastChildFill="False">
+                <DockPanel.Effect>
+                    <DropShadowEffect BlurRadius="3" ShadowDepth="0" />
+                </DockPanel.Effect>
+                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                    <Border Width="10"
+                            Height="10"
+                            Margin="15"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Background="Green"
+                            CornerRadius="15" />
+                    <TextBlock VerticalAlignment="Center"
+                               FontSize="20"
+                               Text="{Binding CurrentChatObjectName}" />
+                </StackPanel>
+
+                <Button Margin="0,0,5,0"
                         Background="#FFE4E4E4"
-                        Orientation="Horizontal">
-                <StackPanel.Effect>
-                    <DropShadowEffect BlurRadius="30" ShadowDepth="1" />
-                </StackPanel.Effect>
-                <Border Width="10"
-                        Height="10"
-                        Margin="15"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Background="Green"
-                        CornerRadius="15" />
-                <TextBlock VerticalAlignment="Center"
-                           FontSize="20"
-                           Text="{Binding CurrentChatObjectName}" />
-                <Button Margin="15,15,10,15" Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
-                    <materialDesign:PackIcon Kind="Call" />
-                </Button>
-                <Button Margin="15,15,10,15" Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
-                    <materialDesign:PackIcon Kind="VideoCall" />
-                </Button>
-            </StackPanel>
-            <ScrollViewer Grid.Row="1"
-                          Margin="4"
+                        BorderBrush="#FFE4E4E4"
+                        Content="..."
+                        DockPanel.Dock="Right"
+                        Foreground="Black" />
+            </DockPanel>
+
+            <ScrollViewer x:Name="MessagesScrollViewer"
+                          Grid.Row="1"
+                          Margin="0,0,0,0"
                           HorizontalScrollBarVisibility="Disabled"
                           VerticalScrollBarVisibility="Auto">
                 <ScrollViewer.Background>
@@ -108,46 +112,88 @@
                 </ItemsControl>
             </ScrollViewer>
 
+            <Grid Grid.Row="2" Background="#FFF5F5F5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
-            <Border Grid.Row="2"
-                    VerticalAlignment="Bottom"
-                    Background="#FFAFE6B2">
-                <Grid Margin="0,10">
+                <!--  toolbar  -->
+                <DockPanel Grid.Row="0"
+                           Margin="0,5,0,0"
+                           VerticalAlignment="Center"
+                           LastChildFill="False">
+                    <Button Margin="0"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            ToolTip="表情">
+                        <materialDesign:PackIcon Kind="EmoticonOutline" />
+                    </Button>
+                    <Button Margin="0"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            ToolTip="文件">
+                        <materialDesign:PackIcon Kind="Folder" />
+                    </Button>
+                    <Button Margin="0"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            ToolTip="剪切">
+                        <materialDesign:PackIcon Kind="ContentCut" />
+                    </Button>
+                    <Button Margin="0"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            ToolTip="更多">
+                        <materialDesign:PackIcon Kind="DotsVertical" />
+                    </Button>
+
+                    <Button Margin="0"
+                            DockPanel.Dock="Right"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            ToolTip="更多">
+                        <materialDesign:PackIcon Kind="Call" />
+                    </Button>
+                    <Button Margin="0"
+                            DockPanel.Dock="Right"
+                            Style="{StaticResource MaterialDesignFlatButton}"
+                            ToolTip="更多">
+                        <materialDesign:PackIcon Kind="VideoCall" />
+                    </Button>
+                </DockPanel>
+
+                <!--  input row  -->
+                <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="70" />
-                        <ColumnDefinition Width="70" />
-                        <ColumnDefinition Width="70" />
+                        <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBox Grid.Column="0"
-                             MaxHeight="80"
-                             Margin="10,1,1,1"
+                    <!--  input box  -->
+                    <TextBox MinHeight="100"
+                             MaxHeight="100"
+                             Margin="0,0,8,0"
+                             Padding="4,4"
                              AcceptsReturn="True"
-                             CaretBrush="Black"
-                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                             Text="{Binding MessageContent}"
+                             Background="Transparent"
+                             BorderBrush="Transparent"
+                             FontSize="16"
+                             PreviewKeyDown="TextBox_PreviewKeyDown"
+                             Text="{Binding MessageContent, UpdateSourceTrigger=PropertyChanged}"
                              TextWrapping="Wrap"
                              VerticalScrollBarVisibility="Auto" />
-                    <Button Grid.Column="3"
+
+                    <!--  send button  -->
+                    <Button Grid.Column="1"
+                            HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"
                             Command="{Binding SendMessageCommand}"
-                            Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
-                        <materialDesign:PackIcon Kind="Send" />
-                    </Button>
-                    <Button Grid.Column="2"
-                            VerticalAlignment="Bottom"
-                            Background="{x:Null}"
-                            Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
-                        <materialDesign:PackIcon Foreground="{StaticResource MaterialDesignShadowBrush}" Kind="Attachment" />
-                    </Button>
-                    <Button Grid.Column="1"
-                            VerticalAlignment="Bottom"
-                            Background="{x:Null}"
-                            Style="{StaticResource MaterialDesignFloatingActionMiniButton}">
-                        <materialDesign:PackIcon Foreground="{StaticResource MaterialDesignShadowBrush}" Kind="Smiley" />
+                            Style="{StaticResource MaterialDesignRaisedButton}">
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <materialDesign:PackIcon Width="16"
+                                                     Height="16"
+                                                     Margin="0,0,6,0"
+                                                     Kind="Send" />
+                            <TextBlock Text="发送" />
+                        </StackPanel>
                     </Button>
                 </Grid>
-            </Border>
+            </Grid>
         </Grid>
 
         <StackPanel Grid.Column="1"

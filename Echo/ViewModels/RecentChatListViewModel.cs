@@ -44,8 +44,8 @@ namespace Echo.ViewModels
 			if (chat == null) return;
 
 			SelectedChat = chat;
-			_ea?.GetEvent<Echo.Events.ChatSelectedEvent>().Publish(chat);
 			_regionManager.Regions[PrismManager.ChatContentViewRegionName].RequestNavigate("ChatContentView");
+			_ea?.GetEvent<Echo.Events.ChatSelectedEvent>().Publish(chat);
 		}
 	}
 

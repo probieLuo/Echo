@@ -43,23 +43,16 @@ namespace Echo.ViewModels
 
 		private readonly IEventAggregator _ea;
 
-		SignalR.SignalRClient client;
+	 	private readonly SignalR.SignalRClient _client;
 		private string targetId;
 
-		public ChatContentViewModel(IRegionManager regionManager, INotificationService notification, IEventAggregator ea) : base(regionManager, notification)
+		public ChatContentViewModel(IRegionManager regionManager, INotificationService notification, IEventAggregator ea, SignalRClient client) : base(regionManager, notification)
 		{
 			_ea = ea;
-			client = new SignalRClient("https://localhost:7099/chatHub", AccessTokenProvider);
+			_client = client;
 			_uiDispatcher = Application.Current.Dispatcher;
 
-			MessagesList = new ObservableCollection<MessageItem>()
-			{
-				//new MessageItem(){
-				//	SenderAvatar = "https://probieluo.github.io/assets/OIP%20(8).jpg",
-				//	MessageContent = "Hello, how are you?",
-				//	IsFromMe = false
-				//}
-			};
+			MessagesList = [];
 
 			SignalRSubscribe();
 
@@ -79,9 +72,9 @@ namespace Echo.ViewModels
 
 		private void SignalRSubscribe()
 		{
-			if (client == null) return;
+			if (_client == null) return;
 
-			client.ReceivePrivateMessage += (senderUserId, content, sendTime, messageId) =>
+			_client.ReceivePrivateMessage += (senderUserId, content, sendTime, messageId) =>
 			{
 				_uiDispatcher.BeginInvoke(new Action(() =>
 				{
@@ -97,13 +90,11 @@ namespace Echo.ViewModels
 
 		private async Task SendMessageAsync()
 		{
-			await client.StartAsync();
-
 			if (string.IsNullOrWhiteSpace(MessageContent)) return;
 
 			try
 			{
-				await client.SendPrivateMessageAsync(targetId, MessageContent);
+				await _client.SendPrivateMessageAsync(targetId, MessageContent);
 
 				MessagesList.Add(MessageItem.SendMsg(MessageContent, "https://avatars.githubusercontent.com/u/75834079?v=4"));
 				MessageContent = string.Empty;
