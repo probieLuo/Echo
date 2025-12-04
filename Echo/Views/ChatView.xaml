@@ -16,10 +16,18 @@
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition MinWidth="160" MaxWidth="400" />
+            <ColumnDefinition Width="4" />
+            <ColumnDefinition Width="*" MinWidth="300" />
         </Grid.ColumnDefinitions>
-
+        <GridSplitter Grid.Column="1"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      Background="Transparent"
+                      Cursor="SizeWE"
+                      ResizeBehavior="PreviousAndNext"
+                      ResizeDirection="Columns"
+                      ShowsPreview="True" />
         <StackPanel Grid.Column="0" Background="{StaticResource MaterialDesign.Brush.Primary.Dark}">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -44,6 +52,6 @@
             </Grid>
             <ContentControl prism:RegionManager.RegionName="ChatListViewRegion" />
         </StackPanel>
-        <ContentControl Grid.Column="1" prism:RegionManager.RegionName="ChatContentViewRegion" />
+        <ContentControl Grid.Column="2" prism:RegionManager.RegionName="ChatContentViewRegion" />
     </Grid>
 </UserControl>

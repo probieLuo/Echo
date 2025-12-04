@@ -11,11 +11,73 @@
              mc:Ignorable="d">
     <UserControl.Resources>
         <converters:IntGreaterThanZeroToVisibilityConverter x:Key="IntGreaterThanZeroToVisibilityConverter" />
+
+        <!--  Selected state resources: simple background and a subtle shadow  -->
+        <SolidColorBrush x:Key="ItemSelectedBrush" Color="#FFDCEEFF" />
+        <SolidColorBrush x:Key="ItemSelectedForegroundBrush" Color="#FF0B2540" />
+        <!--  Fallback for MaterialDesignShadowBrush if not provided by theme  -->
+        <SolidColorBrush x:Key="MaterialDesignShadowBrush" Color="#FFFFFFFF" />
+        <!--  Hover: very subtle shadow  -->
+        <DropShadowEffect x:Key="ItemHoverShadow"
+                          BlurRadius="4"
+                          Opacity="0.15"
+                          ShadowDepth="1"
+                          Color="#22000000" />
+        <!--  Selected: slightly stronger shadow  -->
+        <DropShadowEffect x:Key="ItemSelectedShadow"
+                          BlurRadius="6"
+                          Opacity="0.35"
+                          ShadowDepth="1"
+                          Color="#22000000" />
     </UserControl.Resources>
+
     <Grid>
-        <ListView ItemsSource="{Binding Chats}"
+        <ListView Padding="0"
+                  ItemsSource="{Binding Chats}"
                   ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                   SelectedItem="{Binding SelectedChat, Mode=TwoWay}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    <Setter Property="Padding" Value="0" />
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Border x:Name="Bd"
+                                        Margin="2"
+                                        Padding="{TemplateBinding Padding}"
+                                        Background="{TemplateBinding Background}"
+                                        CornerRadius="6"
+                                        SnapsToDevicePixels="True">
+                                    <Grid>
+                                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                    </Grid>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <!--  Hover: only add very subtle shadow  -->
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="Bd" Property="Effect" Value="{StaticResource ItemHoverShadow}" />
+                                    </Trigger>
+
+                                    <!--  选中：设置背景并添加稍重一点的阴影  -->
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <!--<Setter TargetName="Bd" Property="Background" Value="{StaticResource ItemSelectedBrush}" />-->
+                                        <!--<Setter Property="Foreground" Value="{StaticResource ItemSelectedForegroundBrush}" />-->
+                                        <Setter TargetName="Bd" Property="Effect" Value="{StaticResource ItemSelectedShadow}" />
+                                        <Setter TargetName="Bd" Property="BorderThickness" Value="1" />
+                                        <Setter TargetName="Bd" Property="BorderBrush" Value="#22000000" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
+
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
                     <i:InvokeCommandAction Command="{Binding OpenChatCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType=ListView}}" />
@@ -24,45 +86,71 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Margin="2">
+                    <Grid Margin="10,5,10,5" HorizontalAlignment="Stretch">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="120" />
-                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border Width="40"
-                                Height="40"
-                                BorderBrush="White"
-                                BorderThickness="0.6"
-                                CornerRadius="25">
-                            <Border.Background>
-                                <ImageBrush ImageSource="{Binding Avatar}" />
-                            </Border.Background>
-                        </Border>
-                        <Border Width="10"
-                                Height="10"
-                                Margin="5"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Bottom"
-                                Background="LightGreen"
-                                CornerRadius="15" />
+                        <!--  左侧：头像及状态叠加在同一列，靠左  -->
+                        <Grid Grid.Column="0"
+                              Width="40"
+                              Height="40"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Center">
+                            <Border Width="40"
+                                    Height="40"
+                                    BorderBrush="White"
+                                    BorderThickness="0.6"
+                                    CornerRadius="25">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="{Binding Avatar}" />
+                                </Border.Background>
+                            </Border>
 
-                        <StackPanel Grid.Column="1">
-                            <TextBlock Margin="10,0"
+                            <Border Width="10"
+                                    Height="10"
+                                    Margin="0"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Bottom"
+                                    Background="LightGreen"
+                                    CornerRadius="15" />
+                        </Grid>
+
+                        <Grid Grid.Column="1"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0"
+                                       Margin="8,0,8,0"
+                                       HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Center"
+                                       FontSize="16"
                                        Text="{Binding SendName}"
-                                       TextTrimming="CharacterEllipsis" />
-                            <TextBlock Margin="10,0"
-                                       FontSize="11"
+                                       TextTrimming="CharacterEllipsis"
+                                       TextWrapping="NoWrap" />
+
+                            <TextBlock Grid.Row="1"
+                                       Margin="8,0,8,0"
+                                       HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Center"
+                                       FontSize="12"
                                        Opacity="0.6"
                                        Text="{Binding RecentMsg}"
-                                       TextTrimming="CharacterEllipsis" />
-                        </StackPanel>
+                                       TextTrimming="CharacterEllipsis"
+                                       TextWrapping="NoWrap" />
+                        </Grid>
 
+                        <!--  右侧：未读角标靠右边缘  -->
                         <Border Grid.Column="2"
                                 Width="20"
                                 Height="20"
-                                HorizontalAlignment="Left"
+                                HorizontalAlignment="Right"
                                 VerticalAlignment="Center"
                                 Background="MediumVioletRed"
                                 CornerRadius="20"

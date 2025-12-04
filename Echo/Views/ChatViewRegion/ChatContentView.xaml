@@ -23,7 +23,6 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <DockPanel Grid.Row="0"
                        Height="50"
@@ -53,145 +52,159 @@
                         Foreground="Black" />
             </DockPanel>
 
-            <ScrollViewer x:Name="MessagesScrollViewer"
-                          Grid.Row="1"
-                          Margin="0,0,0,0"
-                          HorizontalScrollBarVisibility="Disabled"
-                          VerticalScrollBarVisibility="Auto">
-                <ScrollViewer.Background>
-                    <ImageBrush ImageSource="/MyResources/Images/sycbk1.png"
-                                Opacity="1"
-                                Stretch="UniformToFill" />
-                </ScrollViewer.Background>
-                <ItemsControl x:Name="MessagesList" ItemsSource="{Binding MessagesList}">
-
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Margin="10">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-
-                                <Border Grid.Column="0"
-                                        Width="40"
-                                        Height="40"
-                                        Margin="0,0,10,0"
-                                        CornerRadius="20"
-                                        Visibility="{Binding IsFromMe, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=False}">
-                                    <Border.Background>
-                                        <ImageBrush ImageSource="{Binding SenderAvatar}" />
-                                    </Border.Background>
-                                </Border>
-
-                                <Border Grid.Column="1"
-                                        Margin="0,5"
-                                        Padding="10"
-                                        Background="{x:Null}"
-                                        CornerRadius="15">
-                                    <TextBlock HorizontalAlignment="{Binding IsFromMe, Converter={StaticResource BoolToHorizontalAlignmentConverter}}"
-                                               FontSize="14"
-                                               Foreground="White"
-                                               Text="{Binding MessageContent}"
-                                               TextWrapping="Wrap" />
-                                </Border>
-
-                                <Border Grid.Column="2"
-                                        Width="40"
-                                        Height="40"
-                                        Margin="10,0,0,0"
-                                        CornerRadius="20">
-                                    <Border.Background>
-                                        <ImageBrush ImageSource="{Binding Avatar}" />
-                                    </Border.Background>
-                                </Border>
-                            </Grid>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
-
-            <Grid Grid.Row="2" Background="#FFF5F5F5">
+            <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" MinHeight="200" />
+                    <RowDefinition Height="4" />
+                    <RowDefinition MinHeight="100" />
                 </Grid.RowDefinitions>
+                <ScrollViewer x:Name="MessagesScrollViewer"
+                              Grid.Row="0"
+                              Margin="0,0,0,0"
+                              HorizontalScrollBarVisibility="Disabled"
+                              VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer.Background>
+                        <ImageBrush ImageSource="/MyResources/Images/sycbk1.png"
+                                    Opacity="1"
+                                    Stretch="UniformToFill" />
+                    </ScrollViewer.Background>
+                    <ItemsControl x:Name="MessagesList" ItemsSource="{Binding MessagesList}">
 
-                <!--  toolbar  -->
-                <DockPanel Grid.Row="0"
-                           Margin="0,5,0,0"
-                           VerticalAlignment="Center"
-                           LastChildFill="False">
-                    <Button Margin="0"
-                            Style="{StaticResource MaterialDesignFlatButton}"
-                            ToolTip="表情">
-                        <materialDesign:PackIcon Kind="EmoticonOutline" />
-                    </Button>
-                    <Button Margin="0"
-                            Style="{StaticResource MaterialDesignFlatButton}"
-                            ToolTip="文件">
-                        <materialDesign:PackIcon Kind="Folder" />
-                    </Button>
-                    <Button Margin="0"
-                            Style="{StaticResource MaterialDesignFlatButton}"
-                            ToolTip="剪切">
-                        <materialDesign:PackIcon Kind="ContentCut" />
-                    </Button>
-                    <Button Margin="0"
-                            Style="{StaticResource MaterialDesignFlatButton}"
-                            ToolTip="更多">
-                        <materialDesign:PackIcon Kind="DotsVertical" />
-                    </Button>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
 
-                    <Button Margin="0"
-                            DockPanel.Dock="Right"
-                            Style="{StaticResource MaterialDesignFlatButton}"
-                            ToolTip="更多">
-                        <materialDesign:PackIcon Kind="Call" />
-                    </Button>
-                    <Button Margin="0"
-                            DockPanel.Dock="Right"
-                            Style="{StaticResource MaterialDesignFlatButton}"
-                            ToolTip="更多">
-                        <materialDesign:PackIcon Kind="VideoCall" />
-                    </Button>
-                </DockPanel>
+                                    <Border Grid.Column="0"
+                                            Width="40"
+                                            Height="40"
+                                            Margin="0,0,10,0"
+                                            CornerRadius="20"
+                                            Visibility="{Binding IsFromMe, Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=False}">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding SenderAvatar}" />
+                                        </Border.Background>
+                                    </Border>
 
-                <!--  input row  -->
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
-                    <!--  input box  -->
-                    <TextBox MinHeight="100"
-                             MaxHeight="100"
-                             Margin="0,0,8,0"
-                             Padding="4,4"
-                             AcceptsReturn="True"
-                             Background="Transparent"
-                             BorderBrush="Transparent"
-                             FontSize="16"
-                             PreviewKeyDown="TextBox_PreviewKeyDown"
-                             Text="{Binding MessageContent, UpdateSourceTrigger=PropertyChanged}"
-                             TextWrapping="Wrap"
-                             VerticalScrollBarVisibility="Auto" />
+                                    <Border Grid.Column="1"
+                                            Margin="0,5"
+                                            Padding="10"
+                                            Background="{x:Null}"
+                                            CornerRadius="15">
+                                        <TextBlock HorizontalAlignment="{Binding IsFromMe, Converter={StaticResource BoolToHorizontalAlignmentConverter}}"
+                                                   FontSize="14"
+                                                   Foreground="White"
+                                                   Text="{Binding MessageContent}"
+                                                   TextWrapping="Wrap" />
+                                    </Border>
 
-                    <!--  send button  -->
-                    <Button Grid.Column="1"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            Command="{Binding SendMessageCommand}"
-                            Style="{StaticResource MaterialDesignRaisedButton}">
-                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                            <materialDesign:PackIcon Width="16"
-                                                     Height="16"
-                                                     Margin="0,0,6,0"
-                                                     Kind="Send" />
-                            <TextBlock Text="发送" />
-                        </StackPanel>
-                    </Button>
+                                    <Border Grid.Column="2"
+                                            Width="40"
+                                            Height="40"
+                                            Margin="10,0,0,0"
+                                            CornerRadius="20">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding Avatar}" />
+                                        </Border.Background>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <GridSplitter Grid.Row="1"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch"
+                              Background="Transparent"
+                              Cursor="SizeNS"
+                              ResizeBehavior="PreviousAndNext"
+                              ResizeDirection="Rows"
+                              ShowsPreview="True" />
+
+                <Grid Grid.Row="2" Background="#FFF5F5F5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <!--  toolbar  -->
+                    <DockPanel Grid.Row="0"
+                               Margin="0,5,0,0"
+                               VerticalAlignment="Center"
+                               LastChildFill="False">
+                        <Button Margin="0"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                ToolTip="表情">
+                            <materialDesign:PackIcon Kind="EmoticonOutline" />
+                        </Button>
+                        <Button Margin="0"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                ToolTip="文件">
+                            <materialDesign:PackIcon Kind="Folder" />
+                        </Button>
+                        <Button Margin="0"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                ToolTip="剪切">
+                            <materialDesign:PackIcon Kind="ContentCut" />
+                        </Button>
+                        <Button Margin="0"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                ToolTip="更多">
+                            <materialDesign:PackIcon Kind="DotsVertical" />
+                        </Button>
+
+                        <Button Margin="0"
+                                DockPanel.Dock="Right"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                ToolTip="更多">
+                            <materialDesign:PackIcon Kind="Call" />
+                        </Button>
+                        <Button Margin="0"
+                                DockPanel.Dock="Right"
+                                Style="{StaticResource MaterialDesignFlatButton}"
+                                ToolTip="更多">
+                            <materialDesign:PackIcon Kind="VideoCall" />
+                        </Button>
+                    </DockPanel>
+
+                    <!--  input row  -->
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <!--  input box  -->
+                        <TextBox Margin="0,0,8,0"
+                                 Padding="4,4"
+                                 AcceptsReturn="True"
+                                 Background="Transparent"
+                                 BorderBrush="Transparent"
+                                 FontSize="16"
+                                 PreviewKeyDown="TextBox_PreviewKeyDown"
+                                 Text="{Binding MessageContent, UpdateSourceTrigger=PropertyChanged}"
+                                 TextWrapping="Wrap"
+                                 VerticalScrollBarVisibility="Auto" />
+
+                        <!--  send button  -->
+                        <Button Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Bottom"
+                                Command="{Binding SendMessageCommand}"
+                                Style="{StaticResource MaterialDesignRaisedButton}">
+                            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                <materialDesign:PackIcon Width="16"
+                                                         Height="16"
+                                                         Margin="0,0,6,0"
+                                                         Kind="Send" />
+                                <TextBlock Text="发送" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
                 </Grid>
             </Grid>
         </Grid>
