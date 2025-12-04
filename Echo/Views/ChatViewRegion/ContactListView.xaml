@@ -8,20 +8,33 @@
              d:DesignHeight="450"
              d:DesignWidth="250"
              mc:Ignorable="d">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding OnLoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Grid>
         <Grid>
             <ListView ItemsSource="{Binding ContactList}"
                       ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                       SelectedItem="{Binding SelectedContact, Mode=TwoWay}">
-                <i:Interaction.Triggers>
+                <!--<i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <i:InvokeCommandAction Command="{Binding OpenChatCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource AncestorType=ListView}}" />
                     </i:EventTrigger>
-                </i:Interaction.Triggers>
+                </i:Interaction.Triggers>-->
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid Margin="2">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseDoubleClick">
+                                    <i:InvokeCommandAction Command="{Binding OpenChatCommand, RelativeSource={RelativeSource AncestorType=ListView}}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto" />
                                 <ColumnDefinition Width="120" />

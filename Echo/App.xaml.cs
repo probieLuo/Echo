@@ -44,6 +44,7 @@ namespace Echo
 			containerRegistry.RegisterSingleton<Echo.IServices.INotificationService, Echo.Services.NotificationService>();
 
 			containerRegistry.Register<IAuthService, AuthService>();
+			containerRegistry.Register<IUserService, UserService>();
 
             var signalRClient = new SignalRClient("https://localhost:7099/chatHub", async () => await Task.FromResult(SignalR.TokenStore.CurrentToken ?? string.Empty));
             containerRegistry.GetContainer().RegisterInstance(signalRClient);
