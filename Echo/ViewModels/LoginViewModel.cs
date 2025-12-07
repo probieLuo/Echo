@@ -95,6 +95,20 @@ namespace Echo.ViewModels
 			try
 			{
 				IsBusy = true;
+
+#if DEBUG
+				var loginResponse1 = await _authService.Login("admin", "123456");
+				var result1 = loginResponse1.Result;
+				if (result1 != null)
+				{
+					TokenStore.CurrentToken = result1.Token;
+					TokenStore.CurrentUserId = result1.UserId;
+				}
+
+				_ea.GetEvent<LoginMessageEvent>().Publish(new LoginMessage { MessageType = LoginMessageType.Login, Status = true, Msg = "登录成功" });
+				ShowSuccess("登录成功", loginResponse1.Message);
+#endif
+
 				var loginResponse = await _authService.Login(UserName, Password);
 
 				if (loginResponse.Status)

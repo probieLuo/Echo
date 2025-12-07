@@ -20,7 +20,7 @@ namespace Echo.Services
 			var request = new BaseRequest
 			{
 				Method = RestSharp.Method.Get,
-				Route = "api/user"
+				Route = "api/User"
 			};
 
 			return await client.ExecuteAsync<List<UserDto>>(request);

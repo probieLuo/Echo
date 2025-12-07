@@ -40,7 +40,7 @@ namespace Echo
         {
 			containerRegistry.GetContainer()
 				.Register<HttpRestClient>(made: Parameters.Of.Type<string>(serviceKey: "webUrl"));
-			containerRegistry.GetContainer().RegisterInstance(@"http://localhost:5221/", serviceKey: "webUrl");
+			containerRegistry.GetContainer().RegisterInstance(@"https://localhost:7099/", serviceKey: "webUrl");//(@"http://localhost:5221/", serviceKey: "webUrl");
 			containerRegistry.RegisterSingleton<Echo.IServices.INotificationService, Echo.Services.NotificationService>();
 
 			containerRegistry.Register<IAuthService, AuthService>();
