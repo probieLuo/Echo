@@ -107,6 +107,7 @@ namespace Echo.ViewModels
 
 				_ea.GetEvent<LoginMessageEvent>().Publish(new LoginMessage { MessageType = LoginMessageType.Login, Status = true, Msg = "登录成功" });
 				ShowSuccess("登录成功", loginResponse1.Message);
+				return;
 #endif
 
 				var loginResponse = await _authService.Login(UserName, Password);

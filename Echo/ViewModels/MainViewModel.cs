@@ -12,13 +12,27 @@ namespace Echo.ViewModels
 		private readonly IRegionManager regionManager;
 
 		public DelegateCommand SignoutCommand {  get; set; }
+		public DelegateCommand UserCommand { get; set; }
+		public DelegateCommand HomeCommand { get; set; }
+		
 
 		public MainViewModel(IRegionManager regionManager)
         {
 			this.regionManager = regionManager;
 
 			SignoutCommand = new DelegateCommand(OnSignout);
+			UserCommand = new DelegateCommand(OnUser);
+			HomeCommand = new DelegateCommand(OnHome);
+		}
 
+		private void OnHome()
+		{
+			regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("ChatView");
+		}
+
+		private void OnUser()
+		{
+			regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("UserView");
 		}
 
 		private void OnSignout()

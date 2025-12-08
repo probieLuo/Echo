@@ -111,7 +111,10 @@
                                                  PlacementMode="BottomAndAlignRightEdges"
                                                  StaysOpen="False">
                             <StackPanel>
-                                <Button Content="{materialDesign:PackIcon Kind=User, Size=20}" ToolTip="User" />
+                                <Button Command="{Binding UserCommand}"
+                                        Content="{materialDesign:PackIcon Kind=User,
+                                                                          Size=20}"
+                                        ToolTip="User" />
                                 <Button Command="{Binding SignoutCommand}"
                                         Content="{materialDesign:PackIcon Kind=Login,
                                                                           Size=20}"

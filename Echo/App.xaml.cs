@@ -57,6 +57,7 @@ namespace Echo
 			containerRegistry.RegisterForNavigation<RecentChatListView, RecentChatListViewModel>();
 			containerRegistry.RegisterForNavigation<ContactListView, ContactListViewModel>();
 			containerRegistry.RegisterForNavigation<DefaultChatContentView, DefaultChatContentViewModel>();
+			containerRegistry.RegisterForNavigation<UserView, UserViewModel>();
 		}
 
         protected override void OnExit(ExitEventArgs e)
