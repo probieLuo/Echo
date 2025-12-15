@@ -3,38 +3,39 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net10.0-windows7.0</TargetFramework>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>MyResources\Images\favicon32.ico</ApplicationIcon>
+    <ApplicationIcon>Images\favicon32.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="MyResources\Images\favicon.ico" />
-    <None Remove="MyResources\Images\favicon32.ico" />
-    <None Remove="MyResources\Images\sycbk1.png" />
-    <None Remove="MyResources\Images\sycbk2.png" />
-    <None Remove="MyResources\Images\sycbk3.png" />
-    <None Remove="MyResources\Images\sycbk4.png" />
+    <None Remove="Images\favicon.ico" />
+    <None Remove="Images\favicon32.ico" />
+    <None Remove="Images\sycbk1.png" />
+    <None Remove="Images\sycbk2.png" />
+    <None Remove="Images\sycbk3.png" />
+    <None Remove="Images\sycbk4.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="MyResources\Images\favicon.ico">
+    <Resource Include="Images\favicon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="MyResources\Images\favicon32.ico">
+    <Resource Include="Images\favicon32.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Content Include="MyResources\Images\favicon32.ico" />
-    <Content Include="MyResources\Images\sycbk1.png">
+    <Content Include="Images\favicon32.ico" />
+    <Content Include="Images\sycbk1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Resource Include="MyResources\Images\sycbk2.png">
+    <Resource Include="Images\sycbk2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="MyResources\Images\sycbk3.png">
+    <Resource Include="Images\sycbk3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="MyResources\Images\sycbk4.png">
+    <Resource Include="Images\sycbk4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AvalonEdit" Version="6.3.1.120" />
     <PackageReference Include="MaterialDesignThemes" Version="5.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="10.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.135" />
@@ -42,8 +43,12 @@
     <PackageReference Include="Notification.Wpf" Version="8.0.0" />
     <PackageReference Include="Prism.DryIoc" Version="9.0.537" />
     <PackageReference Include="RestSharp" Version="113.0.0" />
+    <PackageReference Include="YamlDotNet" Version="16.3.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Echo.Shared\Echo.Shared.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\python.xshd" />
   </ItemGroup>
 </Project>

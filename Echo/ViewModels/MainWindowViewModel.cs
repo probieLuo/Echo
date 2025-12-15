@@ -2,6 +2,7 @@
 using Echo.Events;
 using Echo.Extensions;
 using Echo.IServices;
+using Echo.Services.IServices;
 using Echo.SignalR;
 using Prism.Events;
 using Prism.Navigation.Regions;
@@ -19,7 +20,7 @@ namespace Echo.ViewModels
 
 		public string Title { get; set; } = "Echo";
 
-		public MainWindowViewModel(IRegionManager regionManager, INotificationService notification, IEventAggregator ea, SignalRClient signalRClient) : base(regionManager, notification)
+		public MainWindowViewModel(IRegionManager regionManager, INotificationService notification, IEventAggregator ea, SignalRClient signalRClient, IAppConfig appConfig) : base(regionManager, notification, appConfig)
 		{
 			_ea = ea;
 			_signalRClient = signalRClient ?? throw new ArgumentNullException(nameof(signalRClient));
@@ -62,7 +63,18 @@ namespace Echo.ViewModels
 
 		public void Configure()
 		{
-			_regionManager.Regions[PrismManager.RootViewRegionName].RequestNavigate("LoginView");
+			if (_appConfig.IsDevelopment)
+			{
+				_regionManager.RequestNavigate(PrismManager.RootViewRegionName, "MainView", result =>
+				{
+					_regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("HomeView");
+				});
+				
+			}
+			else
+			{
+				_regionManager.Regions[PrismManager.RootViewRegionName].RequestNavigate("LoginView");
+			}
 		}
 	}
 }

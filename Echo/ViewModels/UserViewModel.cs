@@ -1,4 +1,5 @@
 ﻿using Echo.IServices;
+using Echo.Services.IServices;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Navigation.Regions;
@@ -12,7 +13,7 @@ namespace Echo.ViewModels
 	internal class UserViewModel : ViewModelBase
 	{
 		private readonly IEventAggregator _ea;
-		public UserViewModel(IRegionManager regionManager, INotificationService notificationService, IEventAggregator ea) : base(regionManager, notificationService)
+		public UserViewModel(IRegionManager regionManager, INotificationService notificationService, IEventAggregator ea, IAppConfig appConfig) : base(regionManager, notificationService, appConfig)
 		{
 			_ea = ea;
 		}

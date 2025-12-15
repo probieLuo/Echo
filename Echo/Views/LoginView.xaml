@@ -13,7 +13,7 @@
         <KeyBinding Key="Enter" Command="{Binding LoginCommand}" />
     </UserControl.InputBindings>
     <UserControl.Background>
-        <ImageBrush ImageSource="/MyResources/Images/sycbk1.png" Stretch="UniformToFill" />
+        <ImageBrush ImageSource="/Images/sycbk1.png" Stretch="UniformToFill" />
     </UserControl.Background>
     <UserControl.Resources>
         <SolidColorBrush x:Key="InputBoxHintAssistForegorundBrush" Color="Purple" />

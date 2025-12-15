@@ -1,4 +1,5 @@
 ﻿using Echo.IServices;
+using Echo.Services.IServices;
 using Prism.Mvvm;
 using Prism.Navigation.Regions;
 
@@ -8,11 +9,13 @@ namespace Echo.ViewModels
 	{
 		protected readonly IRegionManager _regionManager;
 		protected readonly INotificationService _notification;
+		protected readonly IAppConfig _appConfig;
 
-		public ViewModelBase(IRegionManager manager, INotificationService notification)
+		public ViewModelBase(IRegionManager manager, INotificationService notification, IAppConfig appConfig)
 		{
 			_regionManager = manager;
 			_notification = notification;
+			_appConfig = appConfig;
 		}
 		protected void Show(string title, string message)
 		{

@@ -1,6 +1,7 @@
 ﻿using Echo.Events;
 using Echo.Extensions;
 using Echo.IServices;
+using Echo.Services.IServices;
 using Echo.SignalR;
 using Prism.Commands;
 using Prism.Events;
@@ -41,7 +42,8 @@ namespace Echo.ViewModels
 			}
 		}
 
-		public LoginViewModel(IRegionManager regionManager, IAuthService authService, INotificationService notification, IEventAggregator ea, IContainerProvider containerProvider) : base(regionManager, notification)
+		public LoginViewModel(IRegionManager regionManager, IAuthService authService, INotificationService notification, IEventAggregator ea, IContainerProvider containerProvider, IAppConfig appConfig) 
+			: base(regionManager, notification, appConfig)
 		{
 			_authService = authService;
 			_ea = ea;

@@ -1,6 +1,7 @@
 ﻿using Echo.Extensions;
 using Echo.IServices;
 using Echo.Services;
+using Echo.Services.IServices;
 using Prism.Commands;
 using Prism.Events;
 using Prism.Navigation.Regions;
@@ -16,7 +17,7 @@ namespace Echo.ViewModels
 	{
 		private readonly IEventAggregator _ea;
 		private readonly IUserService _userService;
-		public ContactListViewModel(IRegionManager regionManager, INotificationService notificationService, IEventAggregator ea, IUserService userService) : base(regionManager, notificationService)
+		public ContactListViewModel(IRegionManager regionManager, INotificationService notificationService, IEventAggregator ea, IUserService userService, IAppConfig appConfig) : base(regionManager, notificationService,appConfig)
 		{
 			_ea = ea;
 			_userService = userService;

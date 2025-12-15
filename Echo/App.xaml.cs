@@ -2,6 +2,8 @@
 using Echo.Common;
 using Echo.IServices;
 using Echo.Services;
+using Echo.Services.IServices;
+using Echo.SignalR;
 using Echo.ViewModels;
 using Echo.Views;
 using Echo.Views.ChatViewRegion;
@@ -9,10 +11,10 @@ using Example;
 using Notification.Wpf;
 using Prism.Container.DryIoc;
 using Prism.Ioc;
+using Prism.Mvvm;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
-using Echo.SignalR;
 
 namespace Echo
 {
@@ -38,6 +40,8 @@ namespace Echo
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+			containerRegistry.RegisterInstance<IAppConfig>(AppConfig.Instance);
+
 			containerRegistry.GetContainer()
 				.Register<HttpRestClient>(made: Parameters.Of.Type<string>(serviceKey: "webUrl"));
 			containerRegistry.GetContainer().RegisterInstance(@"https://localhost:7099/", serviceKey: "webUrl");//(@"http://localhost:5221/", serviceKey: "webUrl");
@@ -58,6 +62,8 @@ namespace Echo
 			containerRegistry.RegisterForNavigation<ContactListView, ContactListViewModel>();
 			containerRegistry.RegisterForNavigation<DefaultChatContentView, DefaultChatContentViewModel>();
 			containerRegistry.RegisterForNavigation<UserView, UserViewModel>();
+			containerRegistry.RegisterForNavigation<HomeView, HomeViewModel>();
+			containerRegistry.RegisterForNavigation<PythonEditorView, PythonEditorViewModel>();
 		}
 
         protected override void OnExit(ExitEventArgs e)

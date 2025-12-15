@@ -1,17 +1,18 @@
-﻿using Echo.IServices;
+﻿using Echo.Extensions;
+using Echo.IServices;
+using Echo.Services.IServices;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Navigation.Regions;
 using System.Collections.ObjectModel;
-using Echo.Extensions;
-using Prism.Events;
 
 namespace Echo.ViewModels
 {
 	public class RecentChatListViewModel : ViewModelBase
 	{
 		private readonly IEventAggregator _ea;
-		public RecentChatListViewModel(IRegionManager regionManager, INotificationService notificationService, IEventAggregator ea) :base(regionManager,notificationService)
+		public RecentChatListViewModel(IRegionManager regionManager, INotificationService notificationService, IEventAggregator ea, IAppConfig appConfig) :base(regionManager,notificationService, appConfig)
 		{
 			_ea = ea;
 			Chats = new ObservableCollection<ChatListItem>
@@ -19,7 +20,7 @@ namespace Echo.ViewModels
 				new ChatListItem { Avatar = "https://probieluo.github.io/assets/OIP%20(8).jpg", SendName = "admin", RecentMsg = "Hi", UnreadMsgCount = 1 ,TargetId = "9c9e0e12-d605-4963-b6be-28313fc71d32" },
 				new ChatListItem { Avatar = "https://avatars.githubusercontent.com/u/75834079?v=4", SendName = "probie", RecentMsg = "See you", UnreadMsgCount = 0 ,TargetId = "782a848d-1346-42bc-80e0-4aa91e2b4b35" },
 			};
-
+			SelectedChat = null;
 			OpenChatCommand = new DelegateCommand<ChatListItem>(OnOpenChat, item => item != null);
 		}
 

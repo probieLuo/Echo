@@ -1,5 +1,6 @@
 ﻿using Echo.Extensions;
 using Echo.IServices;
+using Echo.Services.IServices;
 using Echo.SignalR;
 using Prism.Commands;
 using Prism.Events;
@@ -46,7 +47,7 @@ namespace Echo.ViewModels
 	 	private readonly SignalR.SignalRClient _client;
 		private string targetId;
 
-		public ChatContentViewModel(IRegionManager regionManager, INotificationService notification, IEventAggregator ea, SignalRClient client) : base(regionManager, notification)
+		public ChatContentViewModel(IRegionManager regionManager, INotificationService notification, IEventAggregator ea, SignalRClient client, IAppConfig appConfig) : base(regionManager, notification, appConfig)
 		{
 			_ea = ea;
 			_client = client;

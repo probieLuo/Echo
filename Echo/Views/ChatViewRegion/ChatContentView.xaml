@@ -64,7 +64,7 @@
                               HorizontalScrollBarVisibility="Disabled"
                               VerticalScrollBarVisibility="Auto">
                     <ScrollViewer.Background>
-                        <ImageBrush ImageSource="/MyResources/Images/sycbk1.png"
+                        <ImageBrush ImageSource="/Images/sycbk1.png"
                                     Opacity="1"
                                     Stretch="UniformToFill" />
                     </ScrollViewer.Background>
