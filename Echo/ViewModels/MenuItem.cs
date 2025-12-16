@@ -11,4 +11,5 @@ public class MenuItem
 	public string Description { get; set; }
 	public string Icon { get; set; }
 	public string ViewName { get; set; }
+	public int Order { get; set; }
 }

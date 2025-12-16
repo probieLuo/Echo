@@ -29,9 +29,9 @@ namespace Echo.ViewModels
 
 		private static IEnumerable<MenuItem> GenerateDemoItems()
 		{
-			yield return new MenuItem() { Name = "PythonEditor", ViewName = "PythonEditorView" };
-			yield return new MenuItem() { Name = "Chat", ViewName = "ChatView" };
-			yield return new MenuItem() { Name="Home",ViewName="HomeView"};
+			yield return new MenuItem() { Name = "PythonEditor", ViewName = "PythonEditorView", Order = 2 };
+			yield return new MenuItem() { Name = "Chat", ViewName = "ChatView", Order = 1 };
+			yield return new MenuItem() { Name="Home",ViewName="HomeView", Order=0};
 		}
 
 		public DelegateCommand SignoutCommand { get; set; }
@@ -42,7 +42,7 @@ namespace Echo.ViewModels
 		{
 			this.regionManager = regionManager;
 
-			MenuItems = [.. GenerateDemoItems().OrderBy(i => i.Name),];
+			MenuItems = [.. GenerateDemoItems().OrderBy(i => i.Order),];
 
 			SignoutCommand = new DelegateCommand(OnSignout);
 			UserCommand = new DelegateCommand(OnUser);
@@ -57,11 +57,13 @@ namespace Echo.ViewModels
 
 		private void OnUser()
 		{
+			SelectedItem = MenuItems.FirstOrDefault(i => i.Name == "ChatUser");
 			regionManager.Regions[PrismManager.MainViewRegionName].RequestNavigate("UserView");
 		}
 
 		private void OnSignout()
 		{
+			SelectedItem = null;
 			regionManager.Regions[PrismManager.RootViewRegionName].RequestNavigate("LoginView");
 		}
 
